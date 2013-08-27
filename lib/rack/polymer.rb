@@ -21,7 +21,7 @@ module Rack
     # This javascript checks if the Polymer object has loaded. If not, that most likely means the CDN is unreachable, so it uses the local minified Polymer.
     FALLBACK = <<STR
 <script type="text/javascript">
-  if (typeof _ == 'undefined') {
+  if (typeof Polymer == 'undefined') {
     document.write(unescape("%3Cscript src='/js/#{POLYMER_FILE_NAME}' type='text/javascript'%3E%3C/script%3E"))
   };
 </script>
