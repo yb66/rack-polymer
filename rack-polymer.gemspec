@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["iainspeed@gmail.com"]
   spec.description   = %Q{Polymer CDN script tags and fallback in one neat package. Current version is for Polymer v#{Rack::Polymer::POLYMER_VERSION}}
   spec.summary       = %q{The description says it all.}
-  spec.homepage      = "https://github.com/yb66/rack-jquery"
+  spec.homepage      = "https://github.com/yb66/rack-polymer"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/).reject{|x| x.start_with?("vendor") && !x.include?(Rack::Polymer::POLYMER_VERSION) }
