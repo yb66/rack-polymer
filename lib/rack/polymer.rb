@@ -30,8 +30,17 @@ STR
 
     # @param [Hash] env The rack env.
     # @param [Hash] opts Extra options.
-    # @options opts [Symbol] :organisation Choose which CDN to use, either :cloudflare or :jsdelivr. The default is :cloudflare. If an organisation was set via the Rack env this will override it.
+    # @options opts [Symbol] :organisation Choose which CDN to use. The default is :cloudflare. If an organisation was set via the Rack env this will override it.
+    # @options opts [FalseClass] :cdn Mark as false if you *don't* want to use the CDN and only want to use the fallback script. This option is primarily here so I can use the latest script without relying on the CDN, but use it however you wish.
     # @return [String] The HTML script tags to get the CDN.
+    # @example
+    #   Rack::Polymer.cdn( env )
+    #
+    #   # Choose an organisation
+    #   Rack::Polymer.cdn( env, organisation: :cloudflare )
+    #
+    #   # Don't use a CDN, just use the fallback
+    #   Rack::Polymer.cdn( env, cdn: false )
     def self.cdn( env, opts={} )
       organisation =  opts[:organisation] ||
                         (env["rack.polymer"] && env["rack.polymer"]["organisation"]) ||
@@ -41,7 +50,10 @@ STR
         when :cloudflare then CDN::CLOUDFLARE
         else CDN::CLOUDFLARE
       end
-      "<script src='#{script}'></script>\n#{FALLBACK}"
+
+      opts[:cdn] == false ?
+        FALLBACK :
+        "<script src='#{script}'></script>\n#{FALLBACK}"
     end
 
 

@@ -13,9 +13,13 @@ describe "The class methods" do
       let(:opts) { {} }
       it { should == "<script src='#{Rack::Polymer::CDN::CLOUDFLARE}'></script>\n#{Rack::Polymer::FALLBACK}" }
     end
-    context "of :cloudflare" do
+    context "of :organisation => :cloudflare" do
       let(:opts) { {organisation: :cloudflare} }
       it { should == "<script src='#{Rack::Polymer::CDN::CLOUDFLARE}'></script>\n#{Rack::Polymer::FALLBACK}" }
+    end
+    context "of :cdn => false" do
+      let(:opts) { { cdn: false } }
+      it { should == Rack::Polymer::FALLBACK }
     end
   end
 end
