@@ -1,6 +1,6 @@
 # Rack::Polymer #
 
-[Polymer](http://www.polymer-project.org/) CDN script tags and fallback in one neat package. Current version is for Polymer v#{Rack::Polymer::POLYMER_VERSION}
+[Polymer](http://www.polymer-project.org/) CDN script tags and fallback in one neat package. Current version is for Polymer v#{Rack::Polymer::POLYMER_VERSION} (or if you're reading this in the source and that number doesn't display, look in the lib/rack/polymer/version.rb file).
 
 ### Build status ###
 
