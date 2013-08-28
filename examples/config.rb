@@ -18,6 +18,8 @@ class App < Sinatra::Base
       %a{ href: "/unspecified-cdn"} unspecified-cdn
     %li
       %a{ href: "/specified-via-use"} specified-via-use
+    %li
+      %a{ href: "/no-cdn"} no-cdn
 STR
     haml output
   end
@@ -28,6 +30,10 @@ STR
 
   get "/unspecified-cdn" do
     haml :index, :layout => :unspecified
+  end
+
+  get "/no-cdn" do
+    haml :index, :layout => :no_cdn
   end
 end
 
@@ -46,7 +52,7 @@ end
 __END__
 
 
-@@cloudflare
+@@ cloudflare
 !!!
 %head
   = Rack::Polymer.cdn( env, :organisation => :cloudflare )
@@ -54,7 +60,7 @@ __END__
 %body
   = yield
 
-@@unspecified
+@@ unspecified
 !!!
 %head
   = Rack::Polymer.cdn(env)
@@ -62,10 +68,19 @@ __END__
 %body
   = yield
 
-@@specified_via_use
+@@ specified_via_use
 !!!
 %head
   = Rack::Polymer.cdn(env)
+  %link{ rel: "import", href: "x-foo.html" }
+%body
+  = yield
+
+
+@@ no_cdn 
+!!!
+%head
+  = Rack::Polymer.cdn(env, cdn: false)
   %link{ rel: "import", href: "x-foo.html" }
 %body
   = yield
