@@ -5,7 +5,7 @@
 ### Build status ###
 
 Master branch:
-[![Build Status](https://travis-ci.org/yb66/rack-polymer.png?branch=develop)](https://travis-ci.org/yb66/rack-polymer)
+[![Build Status](https://travis-ci.org/yb66/rack-polymer.png?branch=master)](https://travis-ci.org/yb66/rack-polymer)
 
 
 ## Why? ##
@@ -42,6 +42,18 @@ Then wherever you need the script loaded (like in a layout file):
 
 That's it. There are more options, check the docs.
 
+## Contributing
+
+If you're going to change the code:
+
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request
+
+You can also help by informing me of CDNs that are hosting it and/or releases of the Polymer library. Just add an issue.
+
 
 ### Version numbers ###
 
@@ -62,14 +74,6 @@ If then Polymer released version 3.0.0, I'd add it to the library, and bump Rack
 Only one version of Polymer will be supported at a time. This is because the fallback script is shipped with the gem and I'd like to keep it as light as possible. It's also a headache to have more than one.
 
 So basically, if you want to use a specific version of Polymer, look for the library version that supports it via the {Rack::Polymer::POLYMER_VERSION} constant. Don't rely on the version numbers of *this* library to tell you anything other than compatibility between versions of this library.
-
-## Contributing
-
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
 
 
 ## Licences ##
