@@ -70,3 +70,8 @@ So basically, if you want to use a specific version of Polymer, look for the lib
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+
+## Licences ##
+
+The licence for this library can be found in the LICENCE.txt file. The licence for parts taken from the Polymer library (like the fallback script, bits for examples and specs etc) is to be found in the Polymer-LICENSE file.

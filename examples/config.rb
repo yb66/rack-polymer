@@ -45,10 +45,12 @@ end
 
 __END__
 
+
 @@cloudflare
 !!!
 %head
   = Rack::Polymer.cdn( env, :organisation => :cloudflare )
+  %link{ rel: "import", href: "x-foo.html" }
 %body
   = yield
 
@@ -56,6 +58,7 @@ __END__
 !!!
 %head
   = Rack::Polymer.cdn(env)
+  %link{ rel: "import", href: "x-foo.html" }
 %body
   = yield
 
@@ -63,11 +66,10 @@ __END__
 !!!
 %head
   = Rack::Polymer.cdn(env)
+  %link{ rel: "import", href: "x-foo.html" }
 %body
   = yield
 
 @@index
-%h1
-  No specs for this yet
-%p
-  Something to test will appear soon, I need to work out what's testable first.
+%p The polymer-all/polymer/workbench/oldSmoke/x-foo.html should be imported below.
+<x-foo></x-foo>
