@@ -3,6 +3,11 @@
 
 ## Thursday the 29th of August 2013 ##
 
+### v0.3.0 ###
+
+* Updated the version of Polymer to 0.0.20130816.
+
+
 ### v0.2.0 ###
 
 * Added route for the javascript source map.
