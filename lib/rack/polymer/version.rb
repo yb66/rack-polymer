@@ -2,7 +2,7 @@ module Rack
   class Polymer
 
     # The version of this library.
-    VERSION = "0.1.1"
+    VERSION = "0.2.0"
 
     # The version of Polymer it supports
     POLYMER_VERSION = "0.0.20130711"

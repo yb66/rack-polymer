@@ -1,5 +1,15 @@
 # CH CH CH CH CHANGES! #
 
+
+## Thursday the 29th of August 2013 ##
+
+### v0.2.0 ###
+
+* Added route for the javascript source map.
+
+----
+
+
 ## Wednesday the 28th of August 2013 ##
 
 ### v0.1.1 ###
