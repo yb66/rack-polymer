@@ -17,6 +17,9 @@ module Rack
     # The file name to use for the fallback route.
     POLYMER_FILE_NAME = "polymer-#{POLYMER_VERSION}.min.js"
 
+    # The file name of the source map.
+    POLYMER_SOURCE_MAP = "polymer.min.js.map"
+
 
     # This javascript checks if the Polymer object has loaded. If not, that most likely means the CDN is unreachable, so it uses the local minified Polymer.
     FALLBACK = <<STR
@@ -83,7 +86,10 @@ STR
     #   use Rack::Polymer, :organisation => :cloudflare
     def initialize( app, options={} )
       @app, @options  = app, DEFAULT_OPTIONS.merge(options)
-      @http_path_to_polymer = ::File.join @options[:http_path], POLYMER_FILE_NAME
+      @http_path_to_polymer, @http_path_to_polymer_source_map =
+        [POLYMER_FILE_NAME,POLYMER_SOURCE_MAP].map{|file_name|
+          ::File.join @options[:http_path], file_name
+        }
       @organisation = @options[:organisation]
     end
 
@@ -101,22 +107,35 @@ STR
 
       request = Rack::Request.new(env.dup)
       if request.path_info == @http_path_to_polymer
-        response = Rack::Response.new
+        @response = Rack::Response.new
         # for caching
-        response.headers.merge! caching_headers( POLYMER_FILE_NAME, POLYMER_VERSION_DATE)
+        @response.headers.merge! caching_headers( POLYMER_FILE_NAME, POLYMER_VERSION_DATE)
 
         # There's no need to test if the IF_MODIFIED_SINCE against the release date because the header will only be passed if the file was previously accessed by the requester, and the file is never updated. If it is updated then it is accessed by a different path.
         if request.env['HTTP_IF_MODIFIED_SINCE']
-          response.status = 304
+          @response.status = 304
         else
-          response.status = 200
-          response.write ::File.read( ::File.expand_path "../../../vendor/assets/javascript/libs/polymer/#{POLYMER_VERSION}/polymer.min.js", __FILE__)
+          serve_static_file "polymer.min.js"
         end
-        response.finish
+        @response.finish
+      elsif request.path_info == @http_path_to_polymer_source_map
+        # The source map isn't cached
+        serve_static_file( "polymer.min.js.map" ).finish
       else
         @app.call(env)
       end
     end # call
+
+
+    # Helper method for serving static files.
+    # @param [String] file The short file name.
+    # @return [Rack::Response]
+    def serve_static_file( file )
+      @response ||= Rack::Response.new
+      @response.status = 200
+      @response.write ::File.read( ::File.expand_path "../../../vendor/assets/javascript/libs/polymer/#{POLYMER_VERSION}/#{file}", __FILE__)
+      @response
+    end      
 
   end
 end
